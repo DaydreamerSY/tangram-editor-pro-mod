@@ -27,6 +27,9 @@ var level_text
 var save_button
 var is_overwrite
 
+func get_level_id():
+	return current_level_id
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
@@ -54,7 +57,7 @@ func update_grid_from_save(level):
 
 
 func convert_to_cell_pos(mouse_pos):
-	var tile_pos = (world_to_map(mouse_pos))
+	var tile_pos = world_to_map(mouse_pos)
 	return tile_pos
 	
 
@@ -139,11 +142,5 @@ func _on_CheckBox_toggled(button_pressed):
 		save_button.set_disabled(true)
 	pass # Replace with function body.
 
-func _on_Test_pressed():
-	
-	var TesterBackGround = get_node("../Tester/TestBackGround")
-	var BlocksTester = get_node("../Tester/Blocks")
-	print(current_level_id)
-	TesterBackGround.update_ui(current_level_id)
-	BlocksTester.update_ui(current_level_id)
-	pass
+func set_selector(new_id):
+	lv_selector.select(int(new_id)-1)

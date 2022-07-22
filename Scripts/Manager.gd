@@ -8,9 +8,15 @@ extends Node2D
 var grid
 var pointer
 var color_picker
+var TesterBackGround
+var BlocksTester
+var Editor 
+var Testor
+var Grid 
 
 var current_pos = Vector2(0,0)
-var current_id_color = -1
+var current_id_color = -10
+var current_level_id = 1
 
 var ground_region = [[0,0], [10,10]]
 var color_region = [[1,11], [6,13]]
@@ -19,9 +25,14 @@ var blocker_region = [[7,11], [8,12]]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	grid = get_node("Grid")
-	pointer = get_node("Pointer")
-	color_picker = get_node("ColorPicker")
+	grid = get_node("Editor/Grid")
+	pointer = get_node("Editor/Pointer")
+	color_picker = get_node("Editor/ColorPicker")
+	TesterBackGround = get_node("Tester/TestBackGround")
+	BlocksTester = get_node("Tester/Blocks")
+	Editor = get_node("Editor")
+	Testor = get_node("Tester")
+	Grid = get_node("Editor/Grid")
 	pass # Replace with function body.
 
 
@@ -68,3 +79,26 @@ func check_legit_pos(pos, region):
 #func _process(delta):
 #	pass
 
+func _on_Test_pressed():
+	
+	Editor.visible = false
+	Testor.visible = true
+	
+#	print(current_level_id)
+	current_level_id = Grid.get_level_id()
+	TesterBackGround.update_ui(current_level_id)
+	BlocksTester.clear_cache()
+	BlocksTester.update_ui(current_level_id)
+	pass
+
+
+
+func _on_Edit_pressed():
+	Editor.visible = true
+	Testor.visible = false
+	
+	grid.load_file()
+	grid.update_grid_from_save(current_level_id)
+	grid._on_Level_text_changed()
+	grid.set_selector(current_level_id)
+	pass # Replace with function body.
