@@ -20,7 +20,12 @@ func get_color_id(mouse_pos):
 	var tile_pos = convert_to_cell_pos(mouse_pos)
 	return get_cell(tile_pos[0], tile_pos[1])
 	
-
+func get_pos_color_from_number(number_key):
+	var used_cell = get_used_cells()
+	for cell in used_cell:
+		if get_cell(cell.x, cell.y) == number_key:
+			return map_to_world(cell)
+	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
