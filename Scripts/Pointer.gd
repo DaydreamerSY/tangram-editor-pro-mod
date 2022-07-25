@@ -4,7 +4,8 @@ extends TileMap
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-
+var primary_pos = Vector2(-1,-1)
+var secondary_pos = Vector2(-1,-1)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,16 +17,22 @@ func convert_to_cell_pos(mouse_pos):
 	return tile_pos
 	
 
-func set_pointer(mouse_pos):
+func set_primary(mouse_pos):
+	primary_pos = mouse_pos
 	clear ()
-#	var used_tile = get_used_cells()
-#	for tile_pos in used_tile:
-#		set_cell(tile_pos[0], tile_pos[1], -1)
+	var pri_pos = convert_to_cell_pos(primary_pos)
+	var sec_pos = convert_to_cell_pos(secondary_pos)
+	set_cell(pri_pos[0], pri_pos[1], 0)
+	set_cell(sec_pos[0], sec_pos[1], 1)
 	
-	var tile_pos = convert_to_cell_pos(mouse_pos)
-	set_cell(tile_pos[0], tile_pos[1], 0)
 	
-
+func set_secondary(mouse_pos):
+	secondary_pos = mouse_pos
+	clear ()
+	var pri_pos = convert_to_cell_pos(primary_pos)
+	var sec_pos = convert_to_cell_pos(secondary_pos)
+	set_cell(pri_pos[0], pri_pos[1], 0)
+	set_cell(sec_pos[0], sec_pos[1], 1)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

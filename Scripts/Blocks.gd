@@ -76,6 +76,8 @@ func transalte_pos(level, color):
 func clear_cache():
 	color_saver = {}
 	time_elapsed = 0.0
+	is_selected = false
+	is_started = false
 	Clock.text = _format_seconds(time_elapsed, true)
 	play_zone = []
 

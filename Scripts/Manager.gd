@@ -15,12 +15,13 @@ var Testor
 var Grid 
 
 var current_pos = Vector2(0,0)
-var current_id_color = -10
+var primary_id_color = -1
+var secondary_id_color = -1
 var current_level_id = 1
 
 var ground_region = [[0,0], [10,10]]
 var color_region = [[1,11], [6,13]]
-var blocker_region = [[7,11], [9,12]]
+var blocker_region = [[7,11], [9,13]]
 
 
 # Called when the node enters the scene tree for the first time.
@@ -41,87 +42,104 @@ func _process(delta):
 		current_pos = get_viewport().get_mouse_position()
 
 		if check_legit_pos(grid.convert_to_cell_pos(current_pos), ground_region):
-			grid.change_tile(current_pos, current_id_color)
+			grid.change_tile(current_pos, primary_id_color)
 
 		if check_legit_pos(pointer.convert_to_cell_pos(current_pos), color_region):
-			pointer.set_pointer(current_pos)
-			update_selector(color_picker.get_color_id(current_pos))
+			pointer.set_primary(current_pos)
+			update_primary_color(color_picker.get_color_id(current_pos))
 
 		if check_legit_pos(pointer.convert_to_cell_pos(current_pos), blocker_region):
-			pointer.set_pointer(current_pos)
-			update_selector(color_picker.get_color_id(current_pos))
+			pointer.set_primary(current_pos)
+			update_primary_color(color_picker.get_color_id(current_pos))
 
 
 	if Input.is_action_pressed("removeBlock"):
 		current_pos = get_viewport().get_mouse_position()
 
 		if check_legit_pos(grid.convert_to_cell_pos(current_pos), ground_region):
-			grid.change_tile(current_pos, -1)
+			grid.change_tile(current_pos, secondary_id_color)
+			
+		if check_legit_pos(grid.convert_to_cell_pos(current_pos), blocker_region):
+			pointer.set_secondary(current_pos)
+			update_secondary_color(color_picker.get_color_id(current_pos))
+			
+		if check_legit_pos(pointer.convert_to_cell_pos(current_pos), color_region):
+			pointer.set_secondary(current_pos)
+			update_secondary_color(color_picker.get_color_id(current_pos))
 			
 
 	if Input.is_action_pressed("pick color 1"):
-		update_selector(0)
+		update_primary_color(0)
 		var world_pos = color_picker.get_pos_color_from_number(0)
-		pointer.set_pointer(world_pos)
+		pointer.set_primary(world_pos)
 		pass
 		
 	if Input.is_action_pressed("pick color 2"):
-		update_selector(1)
+		update_primary_color(1)
 		var world_pos = color_picker.get_pos_color_from_number(1)
-		pointer.set_pointer(world_pos)
+		pointer.set_primary(world_pos)
 		pass
 		
 	if Input.is_action_pressed("pick color 3"):
-		update_selector(2)
+		update_primary_color(2)
 		var world_pos = color_picker.get_pos_color_from_number(2)
-		pointer.set_pointer(world_pos)
+		pointer.set_primary(world_pos)
 		pass
 		
 	if Input.is_action_pressed("pick color 4"):
-		update_selector(3)
+		update_primary_color(3)
 		var world_pos = color_picker.get_pos_color_from_number(3)
-		pointer.set_pointer(world_pos)
+		pointer.set_primary(world_pos)
 		pass
 		
 	if Input.is_action_pressed("pick color 5"):
-		update_selector(4)
+		update_primary_color(4)
 		var world_pos = color_picker.get_pos_color_from_number(4)
-		pointer.set_pointer(world_pos)
+		pointer.set_primary(world_pos)
 		pass
 		
 	if Input.is_action_pressed("pick color 6"):
-		update_selector(5)
+		update_primary_color(5)
 		var world_pos = color_picker.get_pos_color_from_number(5)
-		pointer.set_pointer(world_pos)
+		pointer.set_primary(world_pos)
 		pass
 		
 	if Input.is_action_pressed("pick color 7"):
-		update_selector(6)
+		update_primary_color(6)
 		var world_pos = color_picker.get_pos_color_from_number(6)
-		pointer.set_pointer(world_pos)
+		pointer.set_primary(world_pos)
 		pass
 		
 	if Input.is_action_pressed("pick color 8"):
-		update_selector(7)
+		update_primary_color(7)
 		var world_pos = color_picker.get_pos_color_from_number(7)
-		pointer.set_pointer(world_pos)
+		pointer.set_primary(world_pos)
 		pass
 		
 	if Input.is_action_pressed("pick color 9"):
-		update_selector(8)
+		update_primary_color(8)
 		var world_pos = color_picker.get_pos_color_from_number(8)
-		pointer.set_pointer(world_pos)
+		pointer.set_primary(world_pos)
 		pass
 		
 	if Input.is_action_pressed("pick color 10"):
-		update_selector(9)
+		update_primary_color(9)
 		var world_pos = color_picker.get_pos_color_from_number(9)
-		pointer.set_pointer(world_pos)
+		pointer.set_primary(world_pos)
+		pass
+		
+	if Input.is_action_pressed("erase"):
+		update_primary_color(-1)
+		pointer.set_primary(Vector2(232, 398))
 		pass
 
 
-func update_selector(new_id):
-	current_id_color = new_id
+func update_primary_color(new_id):
+	primary_id_color = new_id
+	
+
+func update_secondary_color(new_id):
+	secondary_id_color = new_id
 
 
 func check_legit_pos(pos, region):

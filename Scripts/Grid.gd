@@ -48,7 +48,7 @@ func _ready():
 func update_grid_from_save(level):
 	is_overwrite.set_pressed(false)
 	clear()
-
+	print(file_data)
 	for color in file_data["levels"][str(level)]:
 		for pos in file_data["levels"][str(level)][color]:
 			set_cell(int(pos[0]), int(pos[1]), int(color))
@@ -116,9 +116,11 @@ func _on_Save_pressed():
 
 
 func _on_LevelSelector_item_selected(index):
-	update_grid_from_save(index+1)
-	level_text.text = str(index+1)
-	current_level_id = index+1
+	var optionBtnLevel = get_node("../UI/LevelSelector")
+	var level = int(optionBtnLevel.get_item_text(index))
+	update_grid_from_save(level)
+	level_text.text = str(level)
+	current_level_id = level
 	_on_Level_text_changed()
 	pass # Replace with function body.
 
