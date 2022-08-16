@@ -19,6 +19,26 @@ var file_data = {
 	}
 }
 
+var type_cell_define = {
+	# "nothing": -1
+	"bg": 0,
+	"u": 1,
+	"ur": 2,
+	"r": 3,
+	"rd": 4,
+	"d": 5,
+	"dl": 6,
+	"l": 7,
+	"ul": 8,
+	"urd": 9,
+	"rdl": 10,
+	"udl": 11,
+	"url": 12,
+	"urdl": 13,
+	"ud": 14,
+	"rl": 15
+}
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	load_file()
@@ -31,7 +51,24 @@ func update_ui(level):
 	clear()
 	for color in file_data["levels"][str(level)]:
 		for pos in file_data["levels"][str(level)][color]:
-			set_cell(int(pos[0]), int(pos[1]), 0)
+			# set background for playable zone
+			set_cell(int(pos[0]), int(pos[1]), type_cell_define["bg"])
+			
+	# set edge cover playable zone
+	for x in range(0,11):
+		for y in range(0,11):
+			var type_cell = ""
+			if get_cell(x, y) != type_cell_define["bg"]:
+				if get_cell(x, y-1) == type_cell_define["bg"]:
+					type_cell += "u"
+				if get_cell(x+1, y) == type_cell_define["bg"]:
+					type_cell += "r"
+				if get_cell(x, y+1) == type_cell_define["bg"]:
+					type_cell += "d"
+				if get_cell(x-1, y) == type_cell_define["bg"]:
+					type_cell += "l"
+				if len(type_cell) > 0:
+					set_cell(x, y, type_cell_define[type_cell])
 
 
 func save_file():

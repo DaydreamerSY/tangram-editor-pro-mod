@@ -7,6 +7,7 @@ extends Node2D
 
 var grid
 var pointer
+var pointer_right
 var color_picker
 var TesterBackGround
 var BlocksTester
@@ -28,6 +29,7 @@ var blocker_region = [[7,11], [9,13]]
 func _ready():
 	grid = get_node("Editor/Grid")
 	pointer = get_node("Editor/Pointer")
+	pointer_right = get_node("Editor/Pointer Right")
 	color_picker = get_node("Editor/ColorPicker")
 	TesterBackGround = get_node("Tester/TestBackGround")
 	BlocksTester = get_node("Tester/Blocks")
@@ -60,11 +62,11 @@ func _process(delta):
 			grid.change_tile(current_pos, secondary_id_color)
 			
 		if check_legit_pos(grid.convert_to_cell_pos(current_pos), blocker_region):
-			pointer.set_secondary(current_pos)
+			pointer_right.set_secondary(current_pos)
 			update_secondary_color(color_picker.get_color_id(current_pos))
 			
 		if check_legit_pos(pointer.convert_to_cell_pos(current_pos), color_region):
-			pointer.set_secondary(current_pos)
+			pointer_right.set_secondary(current_pos)
 			update_secondary_color(color_picker.get_color_id(current_pos))
 			
 

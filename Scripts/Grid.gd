@@ -26,6 +26,7 @@ var lv_selector
 var level_text
 var save_button
 var is_overwrite
+var test_button
 
 func get_level_id():
 	return current_level_id
@@ -37,6 +38,9 @@ func _ready():
 	level_text = get_node("../UI/Level")
 	save_button = get_node("../UI/Save")
 	is_overwrite = get_node("../UI/Overwrite")
+	test_button = get_node("../UI/Test")
+	test_button.set_disabled(true)
+	
 
 	load_file()		
 	update_grid_from_save(1)
@@ -87,7 +91,14 @@ func load_file():
 func update_ui():
 #	print(file_data["levels"])
 	lv_selector.clear()
+	var list_of_level_ascent = []
+	
 	for level in file_data["levels"]:
+		list_of_level_ascent.append(int(level))
+	
+	list_of_level_ascent.sort()
+	
+	for level in list_of_level_ascent:
 		lv_selector.add_item(str(level), int(level))
 	level_text.text = str(current_level_id)
 
@@ -139,8 +150,10 @@ func _on_LoadFromFile_pressed():
 
 func _on_CheckBox_toggled(button_pressed):
 	if is_overwrite.is_pressed():
+		test_button.set_disabled(false)
 		save_button.set_disabled(false)
 	else:
+		test_button.set_disabled(true)
 		save_button.set_disabled(true)
 	pass # Replace with function body.
 

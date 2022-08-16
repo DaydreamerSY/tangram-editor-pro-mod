@@ -5,7 +5,7 @@
 [ext_resource path="res://Asset/block01.png" type="Texture" id=3]
 [ext_resource path="res://Asset/block08.png" type="Texture" id=4]
 [ext_resource path="res://Asset/block09.png" type="Texture" id=5]
-[ext_resource path="res://Asset/Blocker.png" type="Texture" id=6]
+[ext_resource path="res://Asset/Blocker_test.png" type="Texture" id=6]
 [ext_resource path="res://Asset/block06.png" type="Texture" id=7]
 [ext_resource path="res://Asset/block04.png" type="Texture" id=8]
 [ext_resource path="res://Asset/block03.png" type="Texture" id=9]
@@ -153,7 +153,7 @@
 9/shape_one_way_margin = 0.0
 9/shapes = [  ]
 9/z_index = 0
-10/name = "Blocker.png 10"
+10/name = "Blocker_test.png 10"
 10/texture = ExtResource( 6 )
 10/tex_offset = Vector2( 0, 0 )
 10/modulate = Color( 1, 1, 1, 1 )
