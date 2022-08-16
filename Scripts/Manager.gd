@@ -36,6 +36,14 @@ func _ready():
 	Editor = get_node("Editor")
 	Testor = get_node("Tester")
 	Grid = get_node("Editor/Grid")
+	
+	# set default right click to Gray
+	pointer_right.set_secondary(Vector2(260, 360))
+	update_secondary_color(color_picker.get_color_id(Vector2(260, 360)))
+	
+	# set default right click to Black
+	pointer.set_primary(Vector2(232, 360))
+	update_primary_color(color_picker.get_color_id(Vector2(232, 360)))
 	pass # Replace with function body.
 
 
@@ -130,9 +138,36 @@ func _process(delta):
 		pointer.set_primary(world_pos)
 		pass
 		
-	if Input.is_action_pressed("erase"):
+	# Set mouse color left click
+	if Input.is_action_pressed("erase") and !Input.is_action_pressed("shift"):
 		update_primary_color(-1)
 		pointer.set_primary(Vector2(232, 398))
+		pass
+		
+	if Input.is_action_pressed("black block picker") and !Input.is_action_pressed("shift"):
+		update_primary_color(10)
+		pointer.set_primary(Vector2(232, 360))
+		pass
+		
+	if Input.is_action_pressed("gray block picker") and !Input.is_action_pressed("shift"):
+		update_primary_color(11)
+		pointer.set_primary(Vector2(260, 360))
+		pass
+		
+	# Set mouse color right click
+	if Input.is_action_pressed("erase") and Input.is_action_pressed("shift"):
+		update_secondary_color(-1)
+		pointer_right.set_secondary(Vector2(232, 398))
+		pass
+		
+	if Input.is_action_pressed("black block picker") and Input.is_action_pressed("shift"):
+		update_secondary_color(10)
+		pointer_right.set_secondary(Vector2(232, 360))
+		pass
+		
+	if Input.is_action_pressed("gray block picker") and Input.is_action_pressed("shift"):
+		update_secondary_color(11)
+		pointer_right.set_secondary(Vector2(260, 360))
 		pass
 
 

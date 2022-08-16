@@ -33,16 +33,16 @@ var is_started = false
 var time_elapsed = 0.0
 
 var zone = {
-	"0": [11, 1],
-	"1": [16, 1],
-	"2": [11, 6],
-	"3": [16, 6],
-	"4": [11, 11],
-	"5": [16, 11],
-	"6": [1, 11],
-	"7": [6, 11],
-	"8": [1, 16],
-	"9": [6, 16],
+	"0": [12, 1],
+	"1": [17, 1],
+	"2": [12, 6],
+	"3": [17, 6],
+	"4": [12, 11],
+	"5": [17, 11],
+	"6": [1, 12],
+	"7": [6, 12],
+	"8": [1, 17],
+	"9": [6, 17],
 }
 
 var play_zone = []
@@ -104,6 +104,7 @@ func _process(delta):
 	if is_selected:
 		if !is_started:
 			is_started = true
+			update_text_Start_btn()
 		var mouse_pos = get_viewport().get_mouse_position()
 		update_pos_of_set_color(current_color_selected, current_color_pos_selected, mouse_pos)
 		update_ui_after_move()
